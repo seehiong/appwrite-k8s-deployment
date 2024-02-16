@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: ./kompose convert
+    kompose.version: 1.32.0 (765fde254)
+  labels:
+    io.kompose.service: mariadb
+  name: mariadb
+  namespace: appwrite
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: mariadb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: ./kompose convert
+        kompose.version: 1.32.0 (765fde254)
+      labels:
+        io.kompose.network/appwrite: "true"
+        io.kompose.service: mariadb
+    spec:
+      containers:
+        - args:
+            - mysqld
+            - --innodb-flush-method=fsync
+          env:
+            - name: MYSQL_DATABASE
+              value: appwrite
+            - name: MYSQL_PASSWORD
+              value: password
+            - name: MYSQL_ROOT_PASSWORD
+              value: rootsecretpassword
+            - name: MYSQL_USER
+              value: user
+          image: mariadb:10.7
+          name: appwrite-mariadb
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: appwrite-mariadb
+      restartPolicy: Always
+      volumes:
+        - name: appwrite-mariadb
+          persistentVolumeClaim:
+            claimName: appwrite-mariadb

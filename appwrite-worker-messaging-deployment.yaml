@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: ./kompose convert
+    kompose.version: 1.32.0 (765fde254)
+  labels:
+    io.kompose.service: appwrite-worker-messaging
+  name: appwrite-worker-messaging
+  namespace: appwrite
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: appwrite-worker-messaging
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: ./kompose convert
+        kompose.version: 1.32.0 (765fde254)
+      labels:
+        io.kompose.network/appwrite: "true"
+        io.kompose.service: appwrite-worker-messaging
+    spec:
+      containers:
+        - command:
+            - worker-messaging
+          image: appwrite/appwrite:1.4.13
+          name: appwrite-worker-messaging
+          env:
+          - name: _APP_ENV
+            value: production
+          - name: _APP_WORKER_PER_CORE
+            value: "6"
+          - name: _APP_REDIS_HOST
+            value: redis-svc.appwrite.svc
+          - name: _APP_REDIS_PORT 
+            value: "6379"
+          - name: _APP_REDIS_USER
+            value:
+          - name: _APP_REDIS_PASS
+            value:
+          - name: _APP_SMS_PROVIDER
+            value:
+          - name: _APP_SMS_FROM
+            value:
+          - name: _APP_LOGGING_PROVIDER
+            value:
+          - name: _APP_LOGGING_CONFIG
+            value:
+      restartPolicy: Always

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: ./kompose convert
+    kompose.version: 1.32.0 (765fde254)
+  labels:
+    io.kompose.service: influxdb
+  name: influxdb
+  namespace: appwrite
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: influxdb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: ./kompose convert
+        kompose.version: 1.32.0 (765fde254)
+      labels:
+        io.kompose.network/appwrite: "true"
+        io.kompose.service: influxdb
+    spec:
+      containers:
+        - image: appwrite/influxdb:1.5.0
+          name: appwrite-influxdb
+          volumeMounts:
+            - mountPath: /var/lib/influxdb
+              name: appwrite-influxdb
+      restartPolicy: Always
+      volumes:
+        - name: appwrite-influxdb
+          persistentVolumeClaim:
+            claimName: appwrite-influxdb

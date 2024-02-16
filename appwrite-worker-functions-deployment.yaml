@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: ./kompose convert
+    kompose.version: 1.32.0 (765fde254)
+  labels:
+    io.kompose.service: appwrite-worker-functions
+  name: appwrite-worker-functions
+  namespace: appwrite
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: appwrite-worker-functions
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: ./kompose convert
+        kompose.version: 1.32.0 (765fde254)
+      labels:
+        io.kompose.network/appwrite: "true"
+        io.kompose.service: appwrite-worker-functions
+    spec:
+      containers:
+        - command:
+            - worker-functions
+          image: appwrite/appwrite:1.4.13
+          name: appwrite-worker-functions
+          env:
+          - name: _APP_ENV
+            value: production
+          - name: _APP_WORKER_PER_CORE
+            value: "6"
+          - name: _APP_OPENSSL_KEY_V1
+            value: your-secret-key
+          - name: _APP_REDIS_HOST
+            value: redis-svc.appwrite.svc
+          - name: _APP_REDIS_PORT
+            value: "6379"
+          - name: _APP_REDIS_USER
+            value:
+          - name: _APP_REDIS_PASS
+            value:
+          - name: _APP_DB_HOST
+            value: mariadb-svc.appwrite.svc
+          - name: _APP_DB_PORT
+            value: "3306"
+          - name: _APP_DB_SCHEMA
+            value: appwrite
+          - name: _APP_DB_USER
+            value: user
+          - name: _APP_DB_PASS
+            value: password
+          - name: _APP_FUNCTIONS_TIMEOUT
+            value: "900"
+          - name: _APP_FUNCTIONS_BUILD_TIMEOUT
+            value: "900"
+          - name: _APP_FUNCTIONS_CPUS
+            value: "0"
+          - name: _APP_FUNCTIONS_MEMORY
+            value: "0"
+          - name: _APP_EXECUTOR_SECRET
+            value: your-secret-key
+          - name: _APP_EXECUTOR_HOST
+            value: http://appwrite-executor-svc.appwrite.svc/v1
+          - name: _APP_USAGE_STATS
+            value: enabled
+          - name: _APP_DOCKER_HUB_USERNAME
+            value:
+          - name: _APP_DOCKER_HUB_PASSWORD
+            value:
+          - name: _APP_LOGGING_CONFIG
+            value:
+          - name: _APP_LOGGING_PROVIDER
+            value:
+      restartPolicy: Always

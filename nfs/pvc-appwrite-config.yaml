@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: appwrite-config
+  namespace: appwrite
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: appwrite-config
+  resources:
+    requests:
+      storage: 100Mi

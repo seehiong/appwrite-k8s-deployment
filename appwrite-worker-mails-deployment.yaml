@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: ./kompose convert
+    kompose.version: 1.32.0 (765fde254)
+  labels:
+    io.kompose.service: appwrite-worker-mails
+  name: appwrite-worker-mails
+  namespace: appwrite
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: appwrite-worker-mails
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: ./kompose convert
+        kompose.version: 1.32.0 (765fde254)
+      labels:
+        io.kompose.network/appwrite: "true"
+        io.kompose.service: appwrite-worker-mails
+    spec:
+      containers:
+        - command:
+            - worker-mails
+          image: appwrite/appwrite:1.4.13
+          name: appwrite-worker-mails
+          env:
+          - name: _APP_ENV
+            value: production
+          - name: _APP_WORKER_PER_CORE
+            value: "6"
+          - name: _APP_OPENSSL_KEY_V1
+            value: your-secret-key
+          - name: _APP_SYSTEM_EMAIL_NAME
+            value: Appwrite
+          - name: _APP_SYSTEM_EMAIL_ADDRESS
+            value: team@appwrite.io
+          - name: _APP_REDIS_HOST
+            value: redis-svc.appwrite.svc
+          - name: _APP_REDIS_PORT
+            value: "6379"
+          - name: _APP_REDIS_USER
+            value:
+          - name: _APP_REDIS_PASS
+            value:
+          - name: _APP_SMTP_HOST
+            value:
+          - name: _APP_SMTP_PORT
+            value:
+          - name: _APP_SMTP_SECURE
+            value:
+          - name: _APP_SMTP_USERNAME
+            value:
+          - name: _APP_SMTP_PASSWORD
+            value:
+          - name: _APP_LOGGING_PROVIDER
+            value:
+          - name: _APP_LOGGING_CONFIG
+            value:
+      restartPolicy: Always

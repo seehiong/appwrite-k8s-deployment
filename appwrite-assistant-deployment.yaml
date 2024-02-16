@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: ./kompose convert
+    kompose.version: 1.32.0 (765fde254)
+  labels:
+    io.kompose.service: appwrite-assistant
+  name: appwrite-assistant
+  namespace: appwrite
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: appwrite-assistant
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: ./kompose convert
+        kompose.version: 1.32.0 (765fde254)
+      labels:
+        io.kompose.network/appwrite: "true"
+        io.kompose.service: appwrite-assistant
+    spec:
+      containers:
+        - image: appwrite/assistant:0.2.2
+          name: appwrite-assistant
+          env:
+          - name: _APP_ASSISTANT_OPENAI_API_KEY
+            value: your-own-key
+      restartPolicy: Always

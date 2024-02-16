@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: appwrite-ingress
+  namespace: appwrite
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /appwrite
+        pathType: Prefix
+        backend:
+          service:
+            name: appwrite-svc
+            port:
+              name: web

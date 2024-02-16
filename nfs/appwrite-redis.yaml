@@ -1,0 +1,21 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: appwrite-redis
+  namespace: appwrite
+spec:
+  chart: nfs-subdir-external-provisioner
+  repo: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner
+  set:
+    nfs.server: tnas.local
+    nfs.path: /mnt/public/appwrite-bee
+    storageClass.name: appwrite-redis
+    storageClass.reclaimPolicy: Retain
+    storageClass.accessModes: ReadWriteMany
+    nfs.reclaimPolicy: Retain
+  valuesContent: |-
+    tolerations:
+    - key: "k3s-controlplane"
+      operator: "Exists"
+      effect: "NoSchedule"
+

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: influxdb-svc
+  namespace: appwrite
+spec:
+  selector: 
+    io.kompose.service: influxdb
+  type: ClusterIP
+  ports:
+  - name: influxdb-port
+    protocol: TCP
+    port: 8086
+    targetPort: 8086
