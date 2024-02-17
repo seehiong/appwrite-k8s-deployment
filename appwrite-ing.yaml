@@ -7,7 +7,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /appwrite
+      - path: /
         pathType: Prefix
         backend:
           service:

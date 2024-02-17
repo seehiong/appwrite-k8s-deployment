@@ -8,7 +8,7 @@ spec:
   repo: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner
   set:
     nfs.server: tnas.local
-    nfs.path: /mnt/public/appwrite-bee
+    nfs.path: /mnt/public/appwrite
     storageClass.name: appwrite-influxdb
     storageClass.reclaimPolicy: Retain
     storageClass.accessModes: ReadWriteMany
