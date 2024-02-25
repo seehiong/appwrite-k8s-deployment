@@ -13,8 +13,3 @@ spec:
     storageClass.reclaimPolicy: Retain
     storageClass.accessModes: ReadWriteMany
     nfs.reclaimPolicy: Retain
-  valuesContent: |-
-    tolerations:
-    - key: "k3s-controlplane"
-      operator: "Exists"
-      effect: "NoSchedule"

@@ -68,16 +68,11 @@ spec:
   repo: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner
   set:
     nfs.server: tnas.local
-    nfs.path: /mnt/public/appwrite-bee
+    nfs.path: /mnt/public/appwrite
     storageClass.name: appwrite-builds
     storageClass.reclaimPolicy: Retain
     storageClass.accessModes: ReadWriteMany
     nfs.reclaimPolicy: Retain
-  valuesContent: |-
-    tolerations:
-    - key: "k3s-controlplane"
-      operator: "Exists"
-      effect: "NoSchedule"
 ```
 
 Let's proceed to copying these 9 files to the auto-deployed folder:
