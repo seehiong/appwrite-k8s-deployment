@@ -4,13 +4,26 @@ metadata:
   name: appwrite-ingress
   namespace: appwrite
 spec:
+  defaultBackend:
+    service:
+      name: appwrite-svc
+      port:
+        number: 80
   rules:
-  - http:
+  - host: "xxxx-xx-xx-xx-x.ngrok-free.app"
+    http:
       paths:
-      - path: /
-        pathType: Prefix
+      - pathType: Prefix
+        path: "/"
         backend:
           service:
             name: appwrite-svc
             port:
-              name: web
+              number: 80
+      - pathType: Prefix
+        path: "/v1/realtime"
+        backend:
+          service:
+            name: appwrite-realtime-svc
+            port:
+              number: 80

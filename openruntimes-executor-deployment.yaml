@@ -25,6 +25,8 @@ spec:
         io.kompose.network/runtimes: "true"
         io.kompose.service: openruntimes-executor
     spec:
+      securityContext:
+        runAsUser: 0    
       containers:
         - env:
             - name: OPR_EXECUTOR_DOCKER_HUB_PASSWORD
@@ -42,7 +44,7 @@ spec:
             - name: OPR_EXECUTOR_MAINTENANCE_INTERVAL
               value: "3600"
             - name: OPR_EXECUTOR_NETWORK
-              value: runtimes
+              value: 
             - name: OPR_EXECUTOR_RUNTIMES
               value: node-16.0,php-8.0,python-3.9,ruby-3.0
             - name: OPR_EXECUTOR_SECRET

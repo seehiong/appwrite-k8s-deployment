@@ -264,7 +264,11 @@ Congratulations! By now, you should see the Appwrite login page:
 
 ![appwrite-hello-world-app](https://seehiong.github.io/images/appwrite/appwrite-hello-world-app.png)
 
+That's all for this post! Happy Appwriting!
+
 ## Optional
+
+### Enable Traefik
 
 For those who wish to enable *traefik*, install k3s with this:
 
@@ -282,4 +286,6 @@ kca appwrite-ing.yaml
 kc get svc -n kube-system
 ```
 
-That's all for this post! Happy Appwriting!
+### Appwrite Functions
+
+Update your deployment files accordingly for [Configuring Appwrite Functions with K3s](https://seehiong.github.io/2024/configuring-appwrite-functions-with-k3s/)

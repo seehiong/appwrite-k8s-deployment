@@ -44,7 +44,7 @@ spec:
           - name: _APP_EXECUTOR_SECRET
             value: your-secret-key
           - name: _APP_EXECUTOR_HOST
-            value: http://appwrite-executor-svc/v1
+            value: http://openruntimes-executor-svc.appwrite.svc/v1
           - name: _APP_REDIS_HOST
             value: redis-svc.appwrite.svc
           - name: _APP_REDIS_PORT
